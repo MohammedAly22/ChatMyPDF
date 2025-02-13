@@ -1,0 +1,10 @@
+# Ignore Jupyter Notebook files
+*.ipynb
+
+# Ignore virtual environment folder
+rag-app-env/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo

@@ -1,13 +1,15 @@
 from typing import List
 
 from langchain_core.documents import Document
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_experimental.text_splitter import SemanticChunker
+
+from embeddings import Embeddings
 
 
 class TextSplitter:
-    def __init__(self, chunk_size: int, chunk_overlap: int):
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=chunk_size, chunk_overlap=chunk_overlap
+    def __init__(self, embeddings: Embeddings):
+        self.text_splitter = SemanticChunker(
+            embeddings=embeddings.embeddings, breakpoint_threshold_type="percentile"
         )
 
     def split_documents(self, docs: List[Document]):

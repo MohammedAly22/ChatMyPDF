@@ -8,3 +8,6 @@ rag-app-env/
 __pycache__/
 *.pyc
 *.pyo
+
+# Ignore the database folder
+data/chroma_rag_db/

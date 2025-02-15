@@ -1,9 +1,11 @@
 """
-Retrival-Augmented Generation (RAG) - Version: 1.0.0
+Retrival-Augmented Generation (RAG) - Version: 1.1.0
 
-- Using `InMemoryVectorStore`.
-- Using `RecursiveCharacterTextSplitter`.
-- Using `similarity_score` function for retrieval.
+- Using `ChromaDB` vector database instead of `InMemoryVectorStore`.
+- Using `PyMuPDFLoader` for data loading instead of `PyPDFLoader`.
+- Using `SemanticChuncker` for a more advanced chunking strategy. 
+- Using `similarity_search_with_relevance_scores` function for retrieval.
+- Adding the functionality of showing the retrieved context.
 """
 
 import os
@@ -22,7 +24,7 @@ from retreival import Retrieval
 from generation import Generator
 from rag_pipeline import RagPipeline
 
-from utils import response_generator, load_api_keys
+from utils import response_generator, load_api_keys, prepare_context
 
 # Set page layout
 st.set_page_config(layout="wide")
@@ -77,34 +79,40 @@ with st.sidebar:
         os.environ["GOOGLE_API_KEY"] = google_api_key
         env_var = "GOOGLE_API_KEY"
 
-    st.subheader("2. Upload your PDF")
+    # Display the toggle to show the retrieved context
+    st.subheader("2. Show Context")
+    st.session_state.show_context = st.toggle(
+        label="Show Retrieved Context",
+        value=False,
+        help="Identify whether to view the retrieved documents or not.",
+    )
+
+    st.subheader("3. Upload your PDF")
     uploaded_file = st.file_uploader(label="Upload your PDF", type="PDF")
+
+    # 1. Download the embeddings
+    embeddings = Embeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+
     if st.button("Submit"):
         if uploaded_file is not None:
             # Save uploaded file to a temporary location
             with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
                 temp_file.write(uploaded_file.read())
-                temp_file_path = temp_file.name  # Get the temp file path
+                temp_file_path = temp_file.name
 
             with st.spinner("Reading your file..."):
-                # 1. Load the PDF file
+                # 2. Load the PDF file
                 data_loader = DataLoader(temp_file_path)
                 docs = data_loader.get_docs()
 
-                # 2. Split the PDF file
-                text_splitter = TextSplitter(chunk_size=1000, chunk_overlap=200)
+                # 3. Split the PDF file
+                text_splitter = TextSplitter(embeddings=embeddings)
                 text_splits = text_splitter.split_documents(docs)
 
-            # 3. Download the embeddings
+            # 4. Index the `text_splits` into the `ChromaDB`
             progress_bar = st.progress(0)
             status_text = st.empty()
-            status_text.markdown("Initializing Embeddings...")
 
-            embeddings = Embeddings(
-                model_name="sentence-transformers/all-mpnet-base-v2"
-            )
-
-            # 4. Index the `text_splits`
             index = Index(embeddings=embeddings)
             status_text.markdown("Indexing Documents...")
 
@@ -117,8 +125,7 @@ with st.sidebar:
                 status_text.markdown(f"Indexing document {i + 1} of {num_docs}...")
 
             progress_bar.progress(100)
-            status_text.markdown("Indexing complete")
-            st.success("Indexing has been done successfully.")
+            st.success("Indexing has been done successfully!")
 
             # 5. Create the retrieval
             retrieval = Retrieval(index.vectorstore)
@@ -158,18 +165,28 @@ with pdf_preview_area:
 
 with chat_area:
     st.subheader("Chat Interface", anchor=False)
-
     if uploaded_file:
         if st.session_state.rag_pipe_trigger:
-
             chat = st.container(height=580, border=False)
             question = st.chat_input("Ask anything related to your PDF...")
+
             with chat:
+                # Display hello message
+                if len(st.session_state.messages) == 0:
+                    hello_message = "Hello! 👋 I'm here to help you find answers from your PDFs. How can I assist you today?"
+                    st.session_state.messages.append(
+                        {"role": "assistant", "content": hello_message}
+                    )
+                    with st.chat_message("assistant", avatar=ai_avatar):
+                        response = st.write_stream(
+                            response_generator(answer=hello_message)
+                        )
+
                 # Display chat messages from history on app rerun
-                for message in st.session_state.messages:
+                for message in st.session_state.messages[1:]:
                     avatar = mohammed_avatar if message["role"] == "user" else ai_avatar
                     with st.chat_message(message["role"], avatar=avatar):
-                        st.markdown(message["content"])
+                        st.write(message["content"])
 
                 if question:
                     # Add user message to chat history
@@ -184,9 +201,23 @@ with chat_area:
                     with st.chat_message("assistant", avatar=ai_avatar):
                         with st.spinner("Answering your question..."):
                             answer = st.session_state.rag_pipe.get_answer(question)
-                        # st.markdown(answer)
+
+                        # Display the retrieved context
+                        if st.session_state.show_context:
+                            retrieved_docs = (
+                                st.session_state.rag_pipe.retrieval.retrieved_docs
+                            )
+                            context = prepare_context(retrieved_docs)
+                            if context:
+                                st.write(context)
+                                st.session_state.messages.append(
+                                    {"role": "assistant", "content": context}
+                                )
+
+                    with st.chat_message("assistant", avatar=ai_avatar):
                         response = st.write_stream(response_generator(answer=answer))
+
                     # Add assistant response to chat history
                     st.session_state.messages.append(
-                        {"role": "assistant", "content": response}
+                        {"role": "assistant", "content": answer}
                     )

@@ -4,7 +4,7 @@ p {
 
 /* Submit buttons */
 button[kind="secondary"] {
-    background-color: #5cdf7d !important;
+    background-color: #5c99df !important;
     color: white;
     outline: none;
     border: none;
@@ -14,7 +14,7 @@ button[kind="secondary"] {
 
 button[kind="secondary"]:hover,
 button[kind="secondary"]:focus {
-    background-color: #4cc56b !important;
+    background-color: #4690e3 !important;
     color: white !important;
     outline: none;
     border: none;

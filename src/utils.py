@@ -3,7 +3,7 @@ import json
 import time
 
 from typing_extensions import TypedDict
-from typing import List
+from typing import List, Tuple
 
 from langchain_core.documents import Document
 from langgraph.graph import START, StateGraph
@@ -28,7 +28,24 @@ class State(TypedDict):
 def response_generator(answer: str):
     for word in answer.split():
         yield word + " "
-        time.sleep(0.005)
+        time.sleep(0.03)
+
+
+def prepare_context(retrieved_docs: List[Tuple[Document, float]]) -> List[str]:
+    context = []
+    for doc, score in retrieved_docs:
+        page_number = doc.metadata["page"]
+        content = doc.page_content
+
+        doc_object = {
+            "Page Number": page_number,
+            "Similarity Score": f"{score:.4f}",
+            "Content": content,
+        }
+
+        context.append(doc_object)
+
+    return context
 
 
 def build_and_compile_graph(retrieve, generate):

@@ -7,6 +7,6 @@ class Retrieval:
 
     def retrieve(self, state: State):
         self.retrieved_docs = self.vector_store.similarity_search_with_relevance_scores(
-            state["question"]
+            state["optimized_query"]
         )
-        return {"context": [doc[0] for doc in self.retrieved_docs]}
+        return {"context": [doc for doc, _ in self.retrieved_docs]}

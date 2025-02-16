@@ -3,7 +3,7 @@ import json
 import time
 
 from typing_extensions import TypedDict
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 from langchain_core.documents import Document
 from langgraph.graph import START, StateGraph
@@ -21,14 +21,16 @@ def load_api_keys():
 
 class State(TypedDict):
     question: str
+    optimized_query: str
     context: List[Document]
+    reranked_documents: Dict
     answer: str
 
 
 def response_generator(answer: str):
-    for word in answer.split():
-        yield word + " "
-        time.sleep(0.03)
+    for char in answer:
+        yield char
+        time.sleep(0.002)
 
 
 def prepare_context(retrieved_docs: List[Tuple[Document, float]]) -> List[str]:
@@ -48,9 +50,17 @@ def prepare_context(retrieved_docs: List[Tuple[Document, float]]) -> List[str]:
     return context
 
 
-def build_and_compile_graph(retrieve, generate):
-    graph_builder = StateGraph(State).add_sequence([retrieve, generate])
-    graph_builder.add_edge(START, "retrieve")
+def build_and_compile_graph(optimize_query, retrieve, rerank_documents, generate):
+    if rerank_documents:
+        graph_builder = StateGraph(State).add_sequence(
+            [optimize_query, retrieve, rerank_documents, generate]
+        )
+    else:
+        graph_builder = StateGraph(State).add_sequence(
+            [optimize_query, retrieve, generate]
+        )
+
+    graph_builder.add_edge(START, "optimize_query")
     graph = graph_builder.compile()
 
     return graph

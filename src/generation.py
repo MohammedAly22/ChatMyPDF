@@ -30,9 +30,21 @@ class Generator:
 
     def generate(self, state: State):
         docs_content = "\n\n".join(doc.page_content for doc in state["context"])
-        messages = self.prompt.invoke(
-            {"question": state["question"], "context": docs_content}
-        )
+
+        if state.get("reranked_documents"):
+            messages = self.prompt.invoke(
+                {
+                    "question": state["optimized_query"],
+                    "context": state["reranked_documents"][:2],
+                }
+            )
+        else:
+            messages = self.prompt.invoke(
+                {
+                    "question": state["optimized_query"],
+                    "context": docs_content,
+                }
+            )
 
         if self.model_name == "cohere":
             response = self.llm.invoke(messages)

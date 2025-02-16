@@ -1,10 +1,11 @@
 p {
     font-weight: 500;
+    overflow-y: hidden !important;
 }
 
 /* Submit buttons */
 button[kind="secondary"] {
-    background-color: #5c99df !important;
+    background-color: #5cdf7d !important;
     color: white;
     outline: none;
     border: none;
@@ -14,14 +15,14 @@ button[kind="secondary"] {
 
 button[kind="secondary"]:hover,
 button[kind="secondary"]:focus {
-    background-color: #4690e3 !important;
+    background-color: #4cc56b !important;
     color: white !important;
     outline: none;
     border: none;
 }
 
 /* Browse files button */
-section[role="presentation"] button {
+section[role="button"] button {
     background-color: #f6f6f6 !important;
     color: #222222;
     outline: none !important;
@@ -30,8 +31,8 @@ section[role="presentation"] button {
     transition: 0.3s;
 }
 
-section[role="presentation"] button:hover,
-section[role="presentation"] button:focus {
+section[role="button"] button:hover,
+section[role="button"] button:focus {
     background-color: #ffffff !important;
     color: #222222 !important;
     outline: none !important;

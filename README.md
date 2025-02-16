@@ -6,7 +6,7 @@ ChatMyPDF is a **Retrieval-Augmented Generation (RAG) application** that allows 
 
 ## 📜 Table of Contents
 
-- [Architecture](#-architecture)
+- [Architecture](#architecture)
 - [Features](#-features)
 - [Installation & Setup](#-installation--setup)
 - [Usage](#-usage)

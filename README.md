@@ -10,6 +10,7 @@ ChatMyPDF is a **Retrieval-Augmented Generation (RAG) application** that allows 
 - [Features](#-features)
 - [Installation & Setup](#-installation--setup)
 - [Usage](#-usage)
+- [Chatting with Sample Data](#-chatting-with-dataumbrella-corporation-employee-handbookpdf)
 - [Technologies Used](#-technologies-used)
 - [Future Enhancements](#-future-enhancements)
 
@@ -128,7 +129,8 @@ Here is a demonstrated screenshot asking some questions regarding my resume:
 
 ![image](https://github.com/user-attachments/assets/096608da-4ae2-483f-be1f-8853d1cca34c)
 
-### Chatting with `data/Umbrella Corporation Employee Handbook.pdf`
+---
+## 💬 Chatting with `data/Umbrella Corporation Employee Handbook.pdf`
 1. Without showing the context (retrieved documents) and re-ranking:
 
 ![image](https://github.com/user-attachments/assets/22b11a88-193f-4066-84ea-dc4eb5ed13d2)

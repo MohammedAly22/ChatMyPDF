@@ -127,7 +127,22 @@ After following the above instructions, you may expect to see this interface:
 Here is a demonstrated screenshot asking some questions regarding my resume:
 
 ![image](https://github.com/user-attachments/assets/096608da-4ae2-483f-be1f-8853d1cca34c)
-  
+
+### Chatting with `data/Umbrella Corporation Employee Handbook.pdf`
+1. Without showing the context (retrieved documents) and re-ranking:
+
+![image](https://github.com/user-attachments/assets/22b11a88-193f-4066-84ea-dc4eb5ed13d2)
+
+2. With showing the context (retrieved documents):
+
+![image](https://github.com/user-attachments/assets/17e2706e-2a08-4fcb-a148-18942e45e584)
+
+
+3. Using document re-ranking after retrieval:
+
+![image](https://github.com/user-attachments/assets/be821431-7404-420d-90ea-de007e31be49)
+![image](https://github.com/user-attachments/assets/d99b6db1-348d-4904-bd3c-f0b38de5f930)
+
 
 ---
 

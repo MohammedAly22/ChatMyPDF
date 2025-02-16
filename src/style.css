@@ -22,7 +22,8 @@ button[kind="secondary"]:focus {
 }
 
 /* Browse files button */
-section[role="button"] button {
+/* Browse files button */
+section[role="presentation"] button {
     background-color: #f6f6f6 !important;
     color: #222222;
     outline: none !important;
@@ -31,8 +32,8 @@ section[role="button"] button {
     transition: 0.3s;
 }
 
-section[role="button"] button:hover,
-section[role="button"] button:focus {
+section[role="presentation"] button:hover,
+section[role="presentation"] button:focus {
     background-color: #ffffff !important;
     color: #222222 !important;
     outline: none !important;

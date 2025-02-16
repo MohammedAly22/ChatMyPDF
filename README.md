@@ -108,6 +108,11 @@ Open the `api_keys.json` file in the root directory and add your API keys:
 streamlit run src/app.py
 ```
 
+### **6️⃣ View the Interface**
+After following the above instructions, you may expect to see this interface:
+
+![image](https://github.com/user-attachments/assets/402d17b5-e597-474f-8085-739c1b3a14cb)
+
 ---
 
 ## 📖 Usage
@@ -118,6 +123,11 @@ streamlit run src/app.py
 4. Decide to show the contexts and/or re-ranking results.
 5. Ask questions about the document.
 6. View AI-generated responses with retrieved context.
+
+Here is a demonstrated screenshot asking some questions regarding my resume:
+
+![image](https://github.com/user-attachments/assets/096608da-4ae2-483f-be1f-8853d1cca34c)
+  
 
 ---
 

@@ -15,6 +15,32 @@ The application follows a **RAG (Retrieval-Augmented Generation) pipeline**, con
 5. **Query Optimization**: User queries are optimized for better retrieval.
 6. **Retrieval & Contextual Response**: The system retrieves the most relevant text chunks and generates a response using an LLM (Cohere/Gemini).
 
+### Basic RAG Architecture
+Here is the most basic RAG architecture:
+![basic_rag_animation](https://github.com/user-attachments/assets/59a98924-d0f4-42e2-bac6-8d8ee08bff5a)
+
+### ChatMyPDF - Version 1.0.0
+This version contains the basic RAG implementation leveraging:
+- `InMemoryVectorStore` for easily store the embeddings.
+- `RecursiveCharacterTextSplitter` for chunking.
+![version_1 0 0_animation](https://github.com/user-attachments/assets/7179d6dc-d593-404c-b375-e229e1a998c8)
+
+### ChatMyPDF - Version 1.1.0
+This version contains a little bit of advanced RAG implementation compared to `v1.0.0` including:
+- Using `ChromaDB` vector database instead of `InMemoryVectorStore`.
+- Using `PyMuPDFLoader` for data loading instead of `PyPDFLoader`.
+- Using `SemanticChuncker` for a more advanced chunking strategy. 
+- Using `similarity_search_with_relevance_scores` function for retrieval.
+- Adding the functionality of showing the retrieved context.
+![version_1 1 0_animation](https://github.com/user-attachments/assets/bea99c69-6c4b-418f-b5f3-ac2fd9b05098)
+  
+### ChatMyPDF - Version 1.2.0
+This is the final version (up until now) that contains extra advanced modules for enhancing the performance:
+- Implemented `query_optimization` module responsible for enhancing the query leveraging LLMs.
+- Leveraging `re-ranking` module responsible for re-rank the documents after `retrieval` to better filter
+out irrelevant context and ensure that only the relevant contexts is passed to the `generator` module.
+![version_1 2 0_animation](https://github.com/user-attachments/assets/f161eeec-4a34-452c-8afd-c615195bebe9)
+
 ---
 
 ## 📜 Table of Contents
@@ -98,6 +124,8 @@ streamlit run src/app.py
 
 - **Streamlit** - Interactive UI for the application.
 - **LangChain** - RAG pipeline, query optimization, and document re-ranking.
+- **LangGraph** - For building state graph RAG pipeline.
+- **LangSmith** - For monitoring and inspecting the logs of the intermediate steps.
 - **Sentence-Transformers** - Embeddings for retrieval.
 - **Cohere / Gemini** - LLM for response generation.
 - **InMemoryVectorStore / ChromaDB** - Vector database for document indexing.

@@ -17,13 +17,14 @@ The application follows a **RAG (Retrieval-Augmented Generation) pipeline**, con
 
 ### Basic RAG Architecture
 Here is the most basic RAG architecture:
-![basic_rag_animation](https://github.com/user-attachments/assets/59a98924-d0f4-42e2-bac6-8d8ee08bff5a)
+![basic_rag_animation](https://github.com/user-attachments/assets/637fca15-cdde-4303-ba36-d50392eee681)
+
 
 ### ChatMyPDF - Version 1.0.0
 This version contains the basic RAG implementation leveraging:
 - `InMemoryVectorStore` for easily store the embeddings.
 - `RecursiveCharacterTextSplitter` for chunking.
-![version_1 0 0_animation](https://github.com/user-attachments/assets/7179d6dc-d593-404c-b375-e229e1a998c8)
+![version_1 0 0_animation](https://github.com/user-attachments/assets/d00268e3-0049-44ac-8767-d90537d890be)
 
 ### ChatMyPDF - Version 1.1.0
 This version contains a little bit of advanced RAG implementation compared to `v1.0.0` including:
@@ -32,14 +33,14 @@ This version contains a little bit of advanced RAG implementation compared to `v
 - Using `SemanticChuncker` for a more advanced chunking strategy. 
 - Using `similarity_search_with_relevance_scores` function for retrieval.
 - Adding the functionality of showing the retrieved context.
-![version_1 1 0_animation](https://github.com/user-attachments/assets/bea99c69-6c4b-418f-b5f3-ac2fd9b05098)
-  
+![version_1 1 0_animation](https://github.com/user-attachments/assets/bdca1d4a-1619-4829-85bb-34039ba696e7)
+
 ### ChatMyPDF - Version 1.2.0
 This is the final version (up until now) that contains extra advanced modules for enhancing the performance:
 - Implemented `query_optimization` module responsible for enhancing the query leveraging LLMs.
 - Leveraging `re-ranking` module responsible for re-rank the documents after `retrieval` to better filter
 out irrelevant context and ensure that only the relevant contexts is passed to the `generator` module.
-![version_1 2 0_animation](https://github.com/user-attachments/assets/f161eeec-4a34-452c-8afd-c615195bebe9)
+![version_1 2 0_animation](https://github.com/user-attachments/assets/6198ea10-52e0-4559-b439-076eb9c5dead)
 
 ---
 

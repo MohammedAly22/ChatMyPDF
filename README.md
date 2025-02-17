@@ -29,13 +29,13 @@ The application follows a **RAG (Retrieval-Augmented Generation) pipeline**, con
 
 ### Basic RAG Architecture
 Here is the most basic RAG architecture:
-![basic_rag_animation](https://github.com/user-attachments/assets/36f89f7e-ee63-4db5-8e5f-32b2fcd82467)
+![image](https://github.com/user-attachments/assets/67701508-5566-4383-b6ca-bbbac9a5c5a1)
 
 ### ChatMyPDF - Version 1.0.0
 This version contains the basic RAG implementation leveraging:
 - `InMemoryVectorStore` for easily store the embeddings.
 - `RecursiveCharacterTextSplitter` for chunking.
-![version_1 0 0_animation](https://github.com/user-attachments/assets/add556e1-a756-4df5-8d35-a53750e15ed5)
+![image](https://github.com/user-attachments/assets/97810b5a-e9c8-4342-82d1-4da5db7da55a)
 
 ### ChatMyPDF - Version 1.1.0
 This version contains a little bit of advanced RAG implementation compared to `v1.0.0` including:
@@ -44,14 +44,14 @@ This version contains a little bit of advanced RAG implementation compared to `v
 - Using `SemanticChuncker` for a more advanced chunking strategy. 
 - Using `similarity_search_with_relevance_scores` function for retrieval.
 - Adding the functionality of showing the retrieved context.
-![version_1 1 0_animation](https://github.com/user-attachments/assets/12cf55f5-61e7-4dd9-853b-7f38fb5c978a)
+![image](https://github.com/user-attachments/assets/604a837b-5b1a-4337-99d4-30b19c3f330b)
 
 ### ChatMyPDF - Version 1.2.0
 This is the final version (up until now) that contains extra advanced modules for enhancing the performance:
 - Implemented `query_optimization` module responsible for enhancing the query leveraging LLMs.
 - Leveraging `re-ranking` module responsible for re-rank the documents after `retrieval` to better filter
 out irrelevant context and ensure that only the relevant contexts is passed to the `generator` module.
-![version_1 2 0_animation](https://github.com/user-attachments/assets/a8ad3e88-5cec-4813-82f2-b1dbe89fbe5b)
+![image](https://github.com/user-attachments/assets/d10d6985-6cf5-4440-a040-8ee7a6ef8a79)
 
 ---
 

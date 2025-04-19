@@ -4,8 +4,10 @@
 
 ChatMyPDF is a **Retrieval-Augmented Generation (RAG) application** that allows users to upload PDF documents and interact with them using an AI-powered chatbot. It uses **embedding-based retrieval** to extract relevant information from PDFs and **LLM-powered generation** to provide context-aware responses.
 
+<!--
 ## 🎥 Video Explanation & Demo Walkthrough
-Video drive link: [ChatMyPDF-Video-Walkthrough](https://drive.google.com/file/d/1e2MfA8SrRcl0lhlj9bjlkgSV9ym5G7O_/view?usp=sharing)
+// Video drive link: [ChatMyPDF-Video-Walkthrough](https://drive.google.com/file/d/1e2MfA8SrRcl0lhlj9bjlkgSV9ym5G7O_/view?usp=sharing)
+-->
 
 ## 📜 Table of Contents
 
